@@ -244,7 +244,7 @@ object Forsyth {
       case _                            => ""
     }
 
-  implicit private val posOrdering = Ordering.by[Pos, File](_.file)
+  implicit private val posOrdering: scala.math.Ordering[strategygames.chess.Pos] = Ordering.by[Pos, File](_.file)
 
   private[chess] def exportCastles(board: Board): String = {
 

@@ -122,13 +122,13 @@ object History {
         score = h.score
       )
 
-  implicit def chessHistory(h: chess.History)               = Chess(h)
-  implicit def draughtsHistory(h: draughts.DraughtsHistory) = Draughts(h)
-  implicit def fairysfHistory(h: fairysf.History)           = FairySF(h)
-  implicit def samuraiHistory(h: samurai.History)           = Samurai(h)
-  implicit def togyzkumalakHistory(h: togyzkumalak.History) = Togyzkumalak(h)
-  implicit def goHistory(h: go.History)                     = Go(h)
-  implicit def backgammonHistory(h: backgammon.History)     = Backgammon(h)
+  implicit def chessHistory(h: chess.History): strategygames.History.Chess               = Chess(h)
+  implicit def draughtsHistory(h: draughts.DraughtsHistory): strategygames.History.Draughts = Draughts(h)
+  implicit def fairysfHistory(h: fairysf.History): strategygames.History.FairySF           = FairySF(h)
+  implicit def samuraiHistory(h: samurai.History): strategygames.History.Samurai           = Samurai(h)
+  implicit def togyzkumalakHistory(h: togyzkumalak.History): strategygames.History.Togyzkumalak = Togyzkumalak(h)
+  implicit def goHistory(h: go.History): strategygames.History.Go                     = Go(h)
+  implicit def backgammonHistory(h: backgammon.History): strategygames.History.Backgammon     = Backgammon(h)
 
   // lila
   def apply(

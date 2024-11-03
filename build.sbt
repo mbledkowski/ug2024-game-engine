@@ -4,7 +4,7 @@ organization := "org.playstrategy"
 
 version := "10.2.1-pstrat159"
 
-scalaVersion := "2.13.10"
+scalaVersion := "2.13.14"
 
 val fairystockfishVersion = "0.0.20"
 
@@ -72,7 +72,8 @@ scalacOptions ++= Seq(
   "-Wunused:implicits",
   "-Wunused:params",
   "-Wvalue-discard",
-  "-Xmaxerrs",
+  // "-Xmaxerrs",
+  "-quickfix:any",
   "12"
 )
 

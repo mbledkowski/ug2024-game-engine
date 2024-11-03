@@ -4,8 +4,6 @@ import com.joansala.game.go.GoGame
 import com.joansala.game.go.GoBoard
 import scala.collection.mutable.ArrayBuffer
 
-import cats.implicits._
-
 import strategygames.{ Pocket, Pockets }
 import strategygames.go.format.FEN
 import strategygames.go.Pos

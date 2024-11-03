@@ -7,7 +7,6 @@ import strategygames.format.pgn.{ ParsedPgn, Sans, Tags }
 import strategygames.go.format.Uci
 
 import cats.data.Validated
-import cats.implicits._
 
 object Reader {
 

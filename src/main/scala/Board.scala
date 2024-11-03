@@ -408,13 +408,13 @@ object Board {
       case _                                                         => sys.error("Mismatched gamelogic types 27")
     }
 
-  implicit def chessBoard(b: chess.Board)               = Board.Chess(b)
-  implicit def draughtsBoard(b: draughts.Board)         = Board.Draughts(b)
-  implicit def fairysfBoard(b: fairysf.Board)           = Board.FairySF(b)
-  implicit def samuraiBoard(b: samurai.Board)           = Board.Samurai(b)
-  implicit def togyzkumalakBoard(b: togyzkumalak.Board) = Board.Togyzkumalak(b)
-  implicit def goBoard(b: go.Board)                     = Board.Go(b)
-  implicit def backgammonBoard(b: backgammon.Board)     = Board.Backgammon(b)
+  implicit def chessBoard(b: chess.Board): strategygames.Board.Chess               = Board.Chess(b)
+  implicit def draughtsBoard(b: draughts.Board): strategygames.Board.Draughts         = Board.Draughts(b)
+  implicit def fairysfBoard(b: fairysf.Board): strategygames.Board.FairySF           = Board.FairySF(b)
+  implicit def samuraiBoard(b: samurai.Board): strategygames.Board.Samurai           = Board.Samurai(b)
+  implicit def togyzkumalakBoard(b: togyzkumalak.Board): strategygames.Board.Togyzkumalak = Board.Togyzkumalak(b)
+  implicit def goBoard(b: go.Board): strategygames.Board.Go                     = Board.Go(b)
+  implicit def backgammonBoard(b: backgammon.Board): strategygames.Board.Backgammon     = Board.Backgammon(b)
 
   def init(lib: GameLogic, variant: Variant): Board = (lib, variant) match {
     case (GameLogic.Draughts(), Variant.Draughts(variant))         => Draughts(draughts.Board.init(variant))
