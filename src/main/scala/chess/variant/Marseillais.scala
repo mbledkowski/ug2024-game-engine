@@ -43,18 +43,28 @@ case object Marseillais
     name = "Marseillais",
     standardInitialPosition = true
   ) {
-  def perfId: Int    = 24
+  def perfId: Int = 24
+
   def perfIcon: Char = '⁄'
 
   override def hasFishnet: Boolean = false
+
   override def exoticChessVariant = true
 
   val pieces: Map[Pos, Piece] = Variant.symmetricRank(backRank)
 
-//  override def lastActionOfTurn(situation: Situation): Boolean = {
-//    situation.player match {
-//      case P1 => situation.board.lastActionPlayer == Some(P1)
-//      case P2 => situation.board.lastActionPlayer == Some(P2)
-//    }
-//  }
+  override def kingSafety(
+                           m: Move,
+                           filter: Piece => Boolean,
+                           kingPos: Option[Pos]
+                         ): Boolean =
+  ! {
+    kingPos exists {
+      super.kingThreatened(m.after, !m.piece.player, _, filter)
+    }
+  }
+
+  override def lastActionOfTurn(situation: Situation): Boolean = {
+    situation.board.lastActionPlayer.contains(situation.player)
+  }
 }

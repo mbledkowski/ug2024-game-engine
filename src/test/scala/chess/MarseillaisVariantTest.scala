@@ -1,13 +1,19 @@
 package strategygames.chess
 
+import cats.data.Validated.Valid
 import strategygames.Player
 import strategygames.chess.variant.Marseillais
 
 class MarseillaisVariantTest extends ChessTest {
   "Marseillais chess" should {
     import Pos._
-    "This game should and with a win for black" in {
+    "This game should end with a win for black" in {
       val game = fenToGame(Marseillais.initialFen, Marseillais)
+      game match {
+        case Valid(game) => println(game.situation.board.variant.validMoves(game.situation))
+        case _           => println("Invalid game")
+      }
+
       val successGame = game.flatMap (_.playMoves(
         G1 -> F3, // 1.
         B1 -> C3, // 1.
