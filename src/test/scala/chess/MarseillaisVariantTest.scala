@@ -2,6 +2,7 @@ package strategygames.chess
 
 import cats.data.Validated.Valid
 import strategygames.Player
+import strategygames.chess.format.FEN
 import strategygames.chess.variant.Marseillais
 
 class MarseillaisVariantTest extends ChessTest {
@@ -36,6 +37,29 @@ class MarseillaisVariantTest extends ChessTest {
       successGame must beValid.like {
         case game => game.situation.winner must beSome(beEqualTo(Player.P2))
       }
+    }
+
+    "Black to move based on FEN" in {
+      val position = FEN("rn1Bk1nr/p2ppp2/8/1p2b1p1/1Pb1P3/2N5/P1PK1PPP/R1Q4R b kq - 0 1")
+      val game = fenToGame(position, Marseillais)
+
+      game must beValid.like {
+        case game => game.situation.player must beEqualTo(Player.P2)
+      }
+    }
+
+      "After black makes a check in first move, the sides should switch" in {
+      val position = FEN("rn1Bk1nr/p2ppp2/8/1p2b1p1/1Pb1P3/2N5/P1PK1PPP/R1Q4R b kq - 0 1")
+      val game = fenToGame(position, Marseillais)
+
+      val gameAfterMove = game.flatMap (_.playMoves(
+        E5 -> F4
+      ))
+
+      gameAfterMove must beValid.like {
+        case game => game.situation.player must beEqualTo(Player.P1)
+      }
+
     }
   }
 }
