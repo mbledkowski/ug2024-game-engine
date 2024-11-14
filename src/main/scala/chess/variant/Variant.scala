@@ -71,7 +71,7 @@ abstract class Variant private[variant] (
       }
       .to(Map)
 
-  // Optimised for performance
+  /** Check if piece on position "to" is threatened, by any other piece on the board */
   def pieceThreatened(
       board: Board,
       player: Player,
@@ -87,6 +87,7 @@ abstract class Variant private[variant] (
     }
   }
 
+  /** Whether the king is threatened by any piece */
   def kingThreatened(
       board: Board,
       player: Player,
@@ -96,6 +97,7 @@ abstract class Variant private[variant] (
   ) =
     pieceThreatened(board, player, to, filter)
 
+  /** Whether the king is safe from capture */
   def kingSafety(
       m: Move,
       filter: Piece => Boolean,

@@ -6,6 +6,7 @@ import format.Uci
 import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 
+/** Class representing chess pieces */
 final case class Actor(
     piece: Piece,
     pos: Pos,
