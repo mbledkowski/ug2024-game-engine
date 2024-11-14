@@ -37,7 +37,7 @@ trait ChessTest extends Specification with ValidatedMatchers {
 
   implicit def stringToBoard(str: String): Board = Visual << str
 
-  implicit def stringToBoardBuilder(str: String) =
+  implicit def stringToBoardBuilder(str: String): AnyRef{def chess960: strategygames.chess.Board; def kingOfTheHill: strategygames.chess.Board; def threeCheck: strategygames.chess.Board; def fiveCheck: strategygames.chess.Board} =
     new {
 
       def chess960: Board = makeBoard(str, strategygames.chess.variant.Chess960)
@@ -49,7 +49,7 @@ trait ChessTest extends Specification with ValidatedMatchers {
       def fiveCheck: Board = makeBoard(str, strategygames.chess.variant.FiveCheck)
     }
 
-  implicit def stringToSituationBuilder(str: String) =
+  implicit def stringToSituationBuilder(str: String): AnyRef{def as(player: strategygames.Player): strategygames.chess.Situation} =
     new {
 
       def as(player: Player): Situation = Situation(Visual << str, player)
@@ -65,7 +65,7 @@ trait ChessTest extends Specification with ValidatedMatchers {
       }
   }
 
-  implicit def richActor(actor: Actor) = RichActor(actor)
+  implicit def richActor(actor: Actor): ChessTest.this.RichActor = RichActor(actor)
 
   case class RichGame(game: Game) {
     def as(player: Player): Game = game.withPlayer(player)
@@ -99,7 +99,7 @@ trait ChessTest extends Specification with ValidatedMatchers {
     def withClock(c: ClockBase) = game.copy(clock = Option(c))
   }
 
-  implicit def richGame(game: Game) = RichGame(game)
+  implicit def richGame(game: Game): ChessTest.this.RichGame = RichGame(game)
 
   def fenToGame(positionString: FEN, variant: Variant) = {
     val situation = Forsyth.<<<@(variant, positionString)

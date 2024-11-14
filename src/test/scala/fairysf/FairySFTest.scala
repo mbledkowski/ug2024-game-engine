@@ -20,7 +20,7 @@ trait FairySFTest extends Specification with ValidatedMatchers {
 
   //  }
 
-  implicit def stringToSituationBuilder(str: String) =
+  implicit def stringToSituationBuilder(str: String): AnyRef{def as(player: strategygames.Player): strategygames.fairysf.Situation} =
     new {
 
       def as(player: Player): Situation = Situation(Visual << str, player)
@@ -69,7 +69,7 @@ trait FairySFTest extends Specification with ValidatedMatchers {
     def withClock(c: ClockBase) = game.copy(clock = Option(c))
   }
 
-  implicit def richGame(game: Game) = RichGame(game)
+  implicit def richGame(game: Game): FairySFTest.this.RichGame = RichGame(game)
 
   // this isnt how we initialise games for fairy and so isn't a good test
   // It doesn't work all the time either

@@ -47,7 +47,7 @@ trait ShogiTest extends Specification with ValidatedMatchers {
     def withClock(c: ClockBase) = game.copy(clock = Some(c))
   }
 
-  implicit def richGame(game: Game) = RichGame(game)
+  implicit def richGame(game: Game): ShogiTest.this.RichGame = RichGame(game)
 
   def makeSituation: Situation = Situation(Shogi)
 
