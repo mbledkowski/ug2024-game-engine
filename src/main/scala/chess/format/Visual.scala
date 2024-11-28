@@ -27,6 +27,24 @@ object Visual {
     )
   }
 
+  def charToChessPiece(c: Char): String = {
+    c match {
+      case 'p' => "♟"
+      case 'n' => "♞"
+      case 'b' => "♝"
+      case 'r' => "♜"
+      case 'q' => "♛"
+      case 'k' => "♚"
+      case 'P' => "♙"
+      case 'N' => "♘"
+      case 'B' => "♗"
+      case 'R' => "♖"
+      case 'Q' => "♕"
+      case 'K' => "♔"
+      case x => x.toString
+    }
+  }
+
   def >>(board: Board): String = >>|(board, Map.empty)
 
   def >>|(board: Board, marks: Map[Iterable[Pos], Char]): String = {
@@ -38,10 +56,23 @@ object Visual {
     for (y <- Rank.allReversed) yield {
       for (x <- File.all) yield {
         val pos = Pos(x, y)
-        markedPoss.get(pos) getOrElse board(pos).fold(' ')(_ forsyth)
+        val char = markedPoss.get(pos) getOrElse board(pos).fold(' ')(_ forsyth)
+        if (x == File.A) {
+          y.toString + " " + charToChessPiece(char)
+        } else {
+          " " + charToChessPiece(char)
+        }
       }
     } mkString
-  } map { """\s*$""".r.replaceFirstIn(_, "") } mkString "\n"
+  }.mkString("\n") + "\n" + (
+    for (x <- File.all) yield {
+      if (x == File.A) {
+        "  " + x.toString + " "
+      } else {
+        x.toString + " "
+      }
+    }
+  ).mkString
 
   def addNewLines(str: String) = "\n" + str + "\n"
 }

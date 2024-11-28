@@ -8,6 +8,7 @@ sealed trait Role {
   lazy val pgn: Char          = forsythUpper
   lazy val name               = toString.toLowerCase
   lazy val groundName         = s"${forsyth}-piece"
+  /* Whether or not the piece is a long range piece (not knight, pawn) */
   val projection: Boolean
   val binaryInt: Int
   val hashInt: Int
