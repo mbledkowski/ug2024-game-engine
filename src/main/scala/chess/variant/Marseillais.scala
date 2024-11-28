@@ -65,6 +65,13 @@ case object Marseillais
   }
 
   override def lastActionOfTurn(situation: Situation): Boolean = {
-    situation.board.lastActionPlayer.contains(situation.player)
+    println(situation.board.lastActionPlayer)
+    val kingPos = situation.board.kingPosOf(!situation.player)
+    println("kingPos: %s".format(kingPos))
+    kingPos exists( x => {
+      val isKingThreatened = kingThreatened(situation.board, situation.player, x, _ => true)
+      println("isKingThreatened: %s".format(isKingThreatened))
+      situation.board.lastActionPlayer.contains(situation.player) || isKingThreatened
+    })
   }
 }
