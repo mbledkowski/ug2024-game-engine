@@ -57,20 +57,23 @@ case object Marseillais
                            m: Move,
                            filter: Piece => Boolean,
                            kingPos: Option[Pos]
-                         ): Boolean =
-  ! {
+                         ): Boolean = {
+  val kingSafety = ! {
     kingPos exists {
       super.kingThreatened(m.after, !m.piece.player, _, filter)
     }
   }
+//    println("kingSafety: %s\nm: %s\nkingPos: %s".format(kingSafety, m, kingPos))
+  kingSafety
+  }
 
   override def lastActionOfTurn(situation: Situation): Boolean = {
-    println(situation.board.lastActionPlayer)
+//    println(situation.history.lastAction)
     val kingPos = situation.board.kingPosOf(!situation.player)
-    println("kingPos: %s".format(kingPos))
+//    println("kingPos: %s".format(kingPos))
     kingPos exists( x => {
       val isKingThreatened = kingThreatened(situation.board, situation.player, x, _ => true)
-      println("isKingThreatened: %s".format(isKingThreatened))
+//      println("isKingThreatened: %s\nPlayer: %s".format(isKingThreatened, situation.player))
       situation.board.lastActionPlayer.contains(situation.player) || isKingThreatened
     })
   }
